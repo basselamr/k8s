@@ -5,6 +5,9 @@ pipeline {
         IMAGE_NAME = 'basamr/bookstore'
         IMAGE_TAG  = "${env.BUILD_NUMBER}"
     }
+    tools {
+        maven 'maven3.9' // This must match the Name you gave in Global Tool Configuration
+    }
 
     stages {
         stage('Checkout') {
