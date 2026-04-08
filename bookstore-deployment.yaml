@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: bookstore-app
-          image: bookstore:1.2
+          image: bookstore:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8082
