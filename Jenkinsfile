@@ -4,15 +4,16 @@ pipeline {
     environment {
         IMAGE_NAME = 'basamr/bookstore'
         IMAGE_TAG  = "${env.BUILD_NUMBER}"
-        PATH = "C:\Program Files\Git\cmd\git.exe"
         KUBECONFIG = 'C:\\Users\\b.kamel\\.kube\\config'
+        PATH = "C:\Program Files\Git\cmd\git.exe"
     }
+
     tools {
-        maven 'maven3.9' // This must match the Name you gave in Global Tool Configuration
+        maven 'maven3.9'
     }
 
     stages {
-        stage('Checkout') {
+        stage('Checkout App Repo') {
             steps {
                 deleteDir()
                 checkout scm
@@ -46,10 +47,19 @@ pipeline {
             }
         }
 
+        stage('Checkout K8s Repo') {
+            steps {
+                dir('k8s-manifests') {
+                    deleteDir()
+                    git branch: 'main', url: 'https://github.com/basselamr/k8s.git'
+                }
+            }
+        }
+
         stage('Deploy to Kubernetes') {
             steps {
                 bat '''
-                kubectl apply -f k8s
+                kubectl apply -f k8s-manifests
                 kubectl set image deployment/bookstore-app bookstore-app=%IMAGE_NAME%:%IMAGE_TAG%
                 kubectl rollout status deployment/bookstore-app
                 '''
