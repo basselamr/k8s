@@ -5,7 +5,7 @@ pipeline {
         IMAGE_NAME = 'basamr/bookstore'
         IMAGE_TAG  = "${env.BUILD_NUMBER}"
         KUBECONFIG = 'C:\\Users\\b.kamel\\.kube\\config'
-        PATH = "C:\Program Files\Git\cmd\git.exe"
+        PATH = "C:\Program Files\Git\cmd\git.exe;C:\\Program Files\\Rancher Desktop\\resources\\resources\\win32\\bin"
     }
 
     tools {
