@@ -56,11 +56,22 @@ pipeline {
             }
         }
 
+        stage('Kube Debug') {
+    steps {
+        bat 'echo %KUBECONFIG%'
+        bat 'kubectl config current-context'
+        bat 'kubectl config get-contexts'
+        bat 'kubectl cluster-info'
+    }
+}
+
        stage('Deploy to Kubernetes') {
             steps {
-                bat 'kubectl apply -f k8s-manifests'
-                bat "kubectl set image deployment/bookstore-app bookstore-app=%IMAGE_NAME%:%IMAGE_TAG%"
-                bat 'kubectl rollout status deployment/bookstore-app'
+                bat '''
+                kubectl apply -f k8s-manifests
+                kubectl set image deployment/bookstore-app bookstore-app=%IMAGE_NAME%:%IMAGE_TAG%
+                kubectl rollout status deployment/bookstore-app
+                '''
             }
         }
     }
