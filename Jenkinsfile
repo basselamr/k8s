@@ -5,6 +5,7 @@ pipeline {
         IMAGE_NAME = 'basamr/bookstore'
         IMAGE_TAG  = "${env.BUILD_NUMBER}"
         PATH = "C:\Program Files\Git\cmd\git.exe"
+        KUBECONFIG = 'C:\\Users\\b.kamel\\.kube\\config'
     }
     tools {
         maven 'maven3.9' // This must match the Name you gave in Global Tool Configuration
