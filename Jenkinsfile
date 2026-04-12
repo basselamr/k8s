@@ -47,7 +47,7 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 bat '''
-                kubectl apply -f k8s .
+                kubectl apply -f k8s
                 kubectl set image deployment/bookstore-app bookstore-app=%IMAGE_NAME%:%IMAGE_TAG%
                 kubectl rollout status deployment/bookstore-app
                 '''
